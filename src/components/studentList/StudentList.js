@@ -50,9 +50,9 @@ const StudentList = () => {
     return (
         <div className="studentList">
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-           {filteredStudents.map(student => {
+           {filteredStudents.map((student, index) => {
             return (
-                <StudentCard student={student} />
+                <StudentCard student={student} key={index} />
             )
            })}
 

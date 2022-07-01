@@ -12,7 +12,6 @@ const StudentCard = ({student}) => {
     // hooks
     const [showGrades, setShowGrades] = useState(false);
 
-    console.log(showGrades);
     // functions 
     const calculateAverage = (grades) => {
 
@@ -50,7 +49,7 @@ const StudentCard = ({student}) => {
                 <div className="studentCard__gradesList" style={{"display": showGrades ? "block" : "none"}}>
                     {grades.map((grade, index) => {
                         return (
-                            <div><span>Test {index+1}:</span><span>{grade}%</span></div>
+                            <div key={index}><span>Test {index+1}:</span><span>{grade}%</span></div>
                         )
                     })}
                 </div>

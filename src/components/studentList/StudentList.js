@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import SearchBar from '../searchBar/SearchBar';
+import SingleTextInput from '../singleTextInput/SingleTextInput';
 import StudentCard from '../studentCard/StudentCard';
 
 import './StudentList.scss';
@@ -20,8 +20,7 @@ const StudentList = () => {
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
-            setStudents(data.students);
+            setStudents(data);
         })
         // get our students
         // update our students hook with the new data
@@ -49,7 +48,7 @@ const StudentList = () => {
     // return or JSX
     return (
         <div className="studentList">
-          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <SingleTextInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
            {filteredStudents.map((student) => {
             return (
                 <StudentCard student={student} key={student.id} />

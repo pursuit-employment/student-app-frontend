@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import SingleTextInput from '../singleTextInput/SingleTextInput';
 import EmptyView from '../emptyView/EmptyView';
+import DialogBox from '../dialogBox/DialogBox';
 
 import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import {AiOutlineReload } from 'react-icons/ai';
@@ -21,6 +22,7 @@ const StudentCard = ({student}) => {
     const [gradesLoading, setGradesLoading] = useState(false);
     const [tags, setTags] = useState([]);
     const [tag, setTag] = useState('');
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
     // functions 
     const calculateAverage = (grades) => {
@@ -64,6 +66,25 @@ const StudentCard = ({student}) => {
                 setGradesLoading(false);
             })
         }
+
+    }
+
+    const showDeleteUserDialogue = (e) => {
+        setShowDeleteDialog(true);
+    }
+
+    const deleteUser = () => {
+        // url to delete 
+        const url = `https://student-app-backend-june.herokuapp.com/students/${id}`;
+
+        fetch(url, { method: 'DELETE' })
+            .then(response =>  response.json())
+            .then(data => {
+                // redirect to home page
+                // show toast that user was deleted
+            }).catch(err => {
+                // show toast that delete was unsuccessful
+            })
 
     }
 
@@ -132,9 +153,10 @@ const StudentCard = ({student}) => {
                 </div>
                 <div>
                     {gradesLoading && <AiOutlineReload className="studentCard__toggleIcon-spinning" size="1.8em" />}
-                    {(!showGrades && !gradesLoading) && <FaTrash className="studentCard__trashIcon" onClick={(e) => fetchAndShowGrades(e)} size="1.8em"/>}
+                    {(!showGrades && !gradesLoading) && <FaTrash className="studentCard__trashIcon" onClick={(e) => showDeleteUserDialogue(e)} size="1.8em"/>}
                 </div>
             </div>
+            <DialogBox open={showDeleteDialog} setOpen={setShowDeleteDialog} deleteUser={deleteUser} />
         </div>
     )
 }

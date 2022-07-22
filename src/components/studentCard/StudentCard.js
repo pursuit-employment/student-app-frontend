@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SingleTextInput from '../singleTextInput/SingleTextInput';
 import EmptyView from '../emptyView/EmptyView';
 
-import { FaPlus, FaMinus } from 'react-icons/fa';
+import { FaPlus, FaMinus, FaTrash } from 'react-icons/fa';
 import {AiOutlineReload } from 'react-icons/ai';
 
 
@@ -110,24 +110,31 @@ const StudentCard = ({student}) => {
                         {grades.length === 0  && <EmptyView text="No Grades for this Student"/>}
                     </div>
                 </div>
-                <div className="studentCard__toggleIcons">
+                <div className="studentCard__actionIcons">
                     {gradesLoading && <AiOutlineReload className="studentCard__toggleIcon-spinning" size="1.8em" />}
                     {(!showGrades && !gradesLoading) && <FaPlus className="studentCard__toggleIcon" onClick={(e) => fetchAndShowGrades(e)} size="1.8em"/>}
                     {(showGrades && !gradesLoading) && <FaMinus className="studentCard__toggleIcon" onClick={(e) => hideGrades(e)} size="1.8em" />}
-                 </div>
+                </div>
+    
             </Link> 
-            <div className="studentCard__tagCollection">
-                        <div className="studentCard__tags">
-                            {tags.map((tag, index) => {
-                                return (
-                                    <span className="studentCard__tag" key={tag + index}>{tag}</span>
-                                )
-                            })}
-                        </div>
-                        <div className="studentCard__tagInput">
-                            <SingleTextInput onSubmit={setTags} collection={tags} searchTerm={tag} setSearchTerm={setTag} width="26%" placeholder="Add a tag" />
-                        </div>
+            <div className="studentCard__tagCollectionRow">
+                <div className="studentCard__tagCollection">
+                    <div className="studentCard__tags">
+                        {tags.map((tag, index) => {
+                            return (
+                                <span className="studentCard__tag" key={tag + index}>{tag}</span>
+                            )
+                        })}
                     </div>
+                    <div className="studentCard__tagInput">
+                        <SingleTextInput onSubmit={setTags} collection={tags} searchTerm={tag} setSearchTerm={setTag} width="26%" placeholder="Add a tag" />
+                    </div>
+                </div>
+                <div>
+                    {gradesLoading && <AiOutlineReload className="studentCard__toggleIcon-spinning" size="1.8em" />}
+                    {(!showGrades && !gradesLoading) && <FaTrash className="studentCard__trashIcon" onClick={(e) => fetchAndShowGrades(e)} size="1.8em"/>}
+                </div>
+            </div>
         </div>
     )
 }

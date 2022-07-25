@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import SingleTextInput from '../singleTextInput/SingleTextInput';
 import EmptyView from '../emptyView/EmptyView';
@@ -13,7 +13,9 @@ import {AiOutlineReload } from 'react-icons/ai';
 
 import './StudentCard.scss';
 
-const StudentCard = ({student}) => {
+const StudentCard = ({student, showDelete=false}) => {
+
+    let navigate = useNavigate();
 
     // props deconstructed
     const {id, pic, firstname, lastname, email, company, skill} = student;
@@ -87,7 +89,12 @@ const StudentCard = ({student}) => {
             .then(response =>  response.json())
             .then(data => {
                 // redirect to home page
-                // show toast that user was deleted
+                navigate("/", { 
+                    state: {
+                        studentName: `${data.firstname} ${data.lastname}`
+                    }
+                });
+
                 setDeleteUserLoading(false)
             }).catch(err => {
                 // show toast that delete was unsuccessful
@@ -168,10 +175,10 @@ const StudentCard = ({student}) => {
                         <SingleTextInput onSubmit={setTags} collection={tags} searchTerm={tag} setSearchTerm={setTag} width="26%" placeholder="Add a tag" />
                     </div>
                 </div>
-                <div>
+                {showDelete && <div>
                     {deleteUserLoading && <AiOutlineReload className="studentCard__toggleIcon-spinning" size="1.8em" />}
                     {(!showGrades && !deleteUserLoading) && <FaTrash className="studentCard__trashIcon" onClick={(e) => showDeleteUserDialogue(e)} size="1.8em"/>}
-                </div>
+                </div> }
             </div>
             <DialogBox open={showDeleteDialog} setOpen={setShowDeleteDialog} deleteUser={deleteUser} />
         </div>

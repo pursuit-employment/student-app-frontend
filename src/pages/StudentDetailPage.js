@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useParams, useLocation} from "react-router-dom";
 
 import StudentCard from '../components/studentCard/StudentCard';
+import StudentUpdateForm from '../components/studentUpdateForm/StudentUpdateForm';
 
 function StudentDetailPage(props) {
 
@@ -43,7 +44,8 @@ function StudentDetailPage(props) {
 
     return (
         <div className="studentDetailPage">
-           {Object.keys(student).length > 0 && <StudentCard student={student} />}
+           {Object.keys(student).length > 0 && <StudentCard student={student} showDelete />}
+           <StudentUpdateForm />
         </div>
     );
 }

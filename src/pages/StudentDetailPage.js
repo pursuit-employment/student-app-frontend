@@ -32,15 +32,12 @@ function StudentDetailPage(props) {
     // with the student Id, we can fetch student info
     // from our API
 
-    // delete student 
-    // add icon on detail page (ie. garbage can)
-    // on click open confirm dialogue 
-    // on cancel, close dialogue
-    // on confirm, show loader while delete happens
-    // on error, show toast that delete was not successful
-    // on success, redirect to home page
-    // and show toast that user was deleted
-
+    // update student 
+    // create update componentn
+    // with form for all fields
+    // on submit, show loader
+    // on success show toast 
+    // on fail show toast (error)s
 
     return (
         <div className="studentDetailPage">

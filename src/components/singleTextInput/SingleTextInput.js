@@ -13,14 +13,14 @@ function SingleTextInput ({searchTerm, setSearchTerm, collection=[], onSubmit, p
 
     useEffect(() => {
         const keyDownHandler = event => {
-          console.log('User pressed: ', event.key);
+        //   console.log('User pressed: ', event.key);
     
-          if (event.key === 'Enter') {
-            event.preventDefault();
+        //   if (event.key === 'Enter') {
+        //     event.preventDefault();
     
-            // 👇️ call submit function here
-            handleSubmit();
-          }
+        //     // 👇️ call submit function here
+        //     handleSubmit();
+        //   }
         };
     
         document.addEventListener('keydown', keyDownHandler);

@@ -10,7 +10,7 @@ import {AiOutlineReload } from 'react-icons/ai';
 
 import './StudentUpdateForm.scss';
 
-function StudentUpdateForm({student}) {
+function StudentUpdateForm({student, setStudent}) {
 
     const [firstname, setFirstname] = useState(student.firstname);
     const [lastname, setLastname] = useState(student.lastname);
@@ -21,6 +21,7 @@ function StudentUpdateForm({student}) {
     const [anyChanges, setAnyChanges] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
+    const [successfulUpdate, setSuccessfulUpdate] = useState(false);
 
 
     const handleChange = (e) => {
@@ -72,30 +73,34 @@ function StudentUpdateForm({student}) {
 
         // fetch
         fetch(url, requestOptions)
-        .then(response => response.json())
-        .then(data => {
+            .then(response => response.json())
+            .then(data => {
 
-            // success state
-            console.log(data);
-            setAnyChanges(false);
-            // show success toast
-            //TODO
-            
-            // error state
-            //TODO
+                // success state
+                setStudent(data);
+                setAnyChanges(false);
+                setSuccessfulUpdate(true);
+                setShowSnackbar(true);    
+                
+                // error state
+                //TODO
 
-            // set loading to false 
-            setLoading(false);
+                // set loading to false 
+                setLoading(false);
 
-
-        }).catch(err => {
-            setLoading(false);
-            // let user know an error has occurred 
-            setShowSnackbar(true);
-        });
+            }).catch(err => {
+                setLoading(false);
+                // let user know an error has occurred 
+                setSuccessfulUpdate(false);
+                setShowSnackbar(true);
+            });
         
 
     }
+
+    const errorElement =  <Alert severity="error">An error occurred while updating — try again later.</Alert>
+    const successElement =  <Alert>Student was updated successfully!</Alert>
+
 
     return (
         <div className="studentUpdateForm">
@@ -105,7 +110,7 @@ function StudentUpdateForm({student}) {
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 autoHideDuration={1500}
                 onClose={() => setShowSnackbar(false)}>
-                <Alert severity="error">An error occurred while updating — try again later.</Alert>
+                    {successfulUpdate ?  successElement : errorElement}
             </Snackbar>
 
             <div className="studentUpdateForm__title">Update Student</div>
@@ -117,7 +122,7 @@ function StudentUpdateForm({student}) {
                     value={firstname}
                     name='firstname'
                     onChange={(e) => handleChange(e)}
-                     />
+                />
                 <TextField 
                     id="outlined-basic" 
                     label="Last Name" 

@@ -12,9 +12,10 @@ function StudentDetailPage(props) {
 
 
     useEffect(() => {
-        if(location.state?.student){
-            setStudent(location.state?.student  )
-        } else {
+        // if(location.state?.student){
+        //     setStudent(location.state?.student)
+        //     // location.state.student = null;
+        // } else {
             
             const singleStudentURL =`https://student-app-backend-june.herokuapp.com/students/${studentId}`; 
 
@@ -23,7 +24,7 @@ function StudentDetailPage(props) {
                 .then(data => {
                     setStudent(data);
                 })
-        }
+        // }
 
     }, []);
     
@@ -38,11 +39,12 @@ function StudentDetailPage(props) {
     // on submit, show loader
     // on success show toast 
     // on fail show toast (error)s
+    // update data on student page
 
     return (
         <div className="studentDetailPage">
            {Object.keys(student).length > 0 && <StudentCard student={student} showDelete />}
-           {Object.keys(student).length > 0 && <StudentUpdateForm student={student} /> }
+           {Object.keys(student).length > 0 && <StudentUpdateForm student={student} setStudent={setStudent} /> }
         </div>
     );
 }

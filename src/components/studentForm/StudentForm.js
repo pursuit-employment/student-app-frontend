@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -10,6 +11,8 @@ import {AiOutlineReload } from 'react-icons/ai';
 import './StudentForm.scss';
 
 function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
+
+    let navigate = useNavigate();
 
     const [firstname, setFirstname] = useState(student.firstname);
     const [lastname, setLastname] = useState(student.lastname );
@@ -59,7 +62,11 @@ function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
 
         // set our target url 
 
-        const url = `https://student-app-backend-june.herokuapp.com/students/${student.id}`;
+        let url = `https://student-app-backend-june.herokuapp.com/students`;
+
+        if(method === 'PUT'){
+            url += `/${student.id}`
+        }
 
         // what data are we passing to our backend?
         // what http method are we using
@@ -75,17 +82,22 @@ function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
             .then(response => response.json())
             .then(data => {
 
-                // success state
-                setStudent(data);
-                setAnyChanges(false);
-                setSuccessfulUpdate(true);
-                setShowSnackbar(true);    
-                
-                // error state
-                //TODO
-
-                // set loading to false 
-                setLoading(false);
+                if(method==='POST') { // we are adding a new student
+                    
+                    // redirect to new studetn detail page
+                    navigate(`/students/${data.id}`, { 
+                        state: {
+                            fromCreateStudent: true, 
+                            studentName: `${data.firstname} ${data.lastname}`
+                        }
+                    });
+                } else  { // updating student 
+                    setStudent(data);
+                    setAnyChanges(false);
+                    setSuccessfulUpdate(true);
+                    setShowSnackbar(true);    
+                    setLoading(false);
+                }
 
             }).catch(err => {
                 setLoading(false);

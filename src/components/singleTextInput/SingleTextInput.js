@@ -5,7 +5,6 @@ import './SingleTextInput.scss';
 
 function SingleTextInput ({searchTerm, setSearchTerm, collection=[], onSubmit, placeholder="Search by name", width="93%"}) {
 
-
     const styles = {
         "width" : width
     }

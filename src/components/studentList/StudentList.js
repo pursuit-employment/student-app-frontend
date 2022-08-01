@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useLocation } from "react-router-dom";
 
-import SingleTextInput from '../singleTextInput/SingleTextInput';
+import SearchBar from '../searchBar/SearchBar';
 import StudentCard from '../studentCard/StudentCard';
 import EmptyView from '../emptyView/EmptyView';
 
@@ -52,7 +52,7 @@ const StudentList = (props) => {
 
     if(searchTerm){
         filteredStudents = students.filter(student => {
-            const fullName = `${student.firstName} ${student.lastName}`;
+            const fullName = `${student.firstname} ${student.lastname}`;
             
             const fullNameToLowerCase = fullName.toLowerCase();
 
@@ -73,7 +73,7 @@ const StudentList = (props) => {
                 onClose={() => setShowSnackbar(false)}>
                 <Alert>{location?.state?.studentName} was successfully deleted.</Alert>
             </Snackbar>
-          <SingleTextInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
            {filteredStudents.map((student) => {
             return (
                 <StudentCard student={student} key={student.id} />

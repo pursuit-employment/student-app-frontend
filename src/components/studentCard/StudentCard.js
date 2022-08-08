@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import SingleTextInput from '../singleTextInput/SingleTextInput';
+import TagInputField from '../tagInputField/TagInputField';
 import EmptyView from '../emptyView/EmptyView';
 import DialogBox from '../dialogBox/DialogBox';
 
@@ -25,7 +25,6 @@ const StudentCard = ({student, showDelete=false}) => {
     const [showGrades, setShowGrades] = useState(false);
     const [gradesLoading, setGradesLoading] = useState(false);
     const [tags, setTags] = useState([]);
-    const [tag, setTag] = useState('');
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [deleteUserLoading, setDeleteUserLoading] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
@@ -172,7 +171,7 @@ const StudentCard = ({student, showDelete=false}) => {
                         })}
                     </div>
                     <div className="studentCard__tagInput">
-                        <SingleTextInput onSubmit={setTags} collection={tags} searchTerm={tag} setSearchTerm={setTag} width="26%" placeholder="Add a tag" />
+                        <TagInputField setTags={setTags} tags={tags} id={student.id} />
                     </div>
                 </div>
                 {showDelete && <div>

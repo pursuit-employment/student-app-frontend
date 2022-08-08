@@ -7,8 +7,8 @@ function Contact(props) {
     return (
         <div className="contact">
             <div className="contact__info">
-                <div class="contact__title">Contact Jordan Manley</div>
-                <div class="contact__subheader">
+                <div className="contact__title">Contact Jordan Manley</div>
+                <div className="contact__subheader">
                     Like what you see? I'm a graduate Pursuit, looking for my first fulltime job. 
                 </div> 
 

@@ -3,7 +3,7 @@
 .contact {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    column-gap: 20px;
+    column-gap: 40px;
 
     &__title { 
         font-size: 40px;
@@ -34,6 +34,15 @@
     &__salesPointIcon {
         font-size: 14px;
         padding-right: 8px;
+    }
+
+    @media only screen and (max-width: 440px) { 
+       display: block;
+       margin: 0 15px 15px;
+
+       &__info {
+        margin-top: 15px;
+       }
     }
 
 }

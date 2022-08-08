@@ -8,6 +8,8 @@ import Snackbar from '@mui/material/Snackbar';
 
 import {AiOutlineReload } from 'react-icons/ai';
 
+import {isValidEmail} from '../../utils/EmailValidation';
+
 import './StudentForm.scss';
 
 function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
@@ -17,6 +19,8 @@ function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
     const [firstname, setFirstname] = useState(student.firstname);
     const [lastname, setLastname] = useState(student.lastname );
     const [email, setEmail] = useState(student.email);
+    const [emailError, setEmailError] = useState(false);
+    const [emailHelperText, setEmailHelperText] = useState('');
     const [company, setCompany] = useState(student.company);
     const [city, setCity] = useState(student.city);
     const [skill, setSkill] = useState(student.skill);
@@ -61,6 +65,16 @@ function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
 
     const handleSubmit = () => {
         
+
+        if(!isValidEmail(email)){
+            setEmailError(true);
+            setEmailHelperText("Invalid Email.")
+            return;
+        } else {
+            setEmailError(false);
+            setEmailHelperText("")
+        }
+
         // loading state
         setLoading(true);
 
@@ -154,6 +168,8 @@ function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
                     variant="outlined" 
                     value={email}
                     name='email'
+                    error={emailError}
+                    helperText={emailHelperText}
                     onChange={(e) => handleChange(e)} 
                 />
                 <TextField 

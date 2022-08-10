@@ -18,6 +18,7 @@ const StudentList = (props) => {
     // hooks
     const [students, setStudents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [tagSearch, setTagSearch] = useState('');
     const [loading, setLoading] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
     
@@ -37,6 +38,11 @@ const StudentList = (props) => {
         fetch(url)
         .then(response => response.json())
         .then(data => {
+
+            for(let student of data){
+                student.tagArr = [];
+            }
+
             setStudents(data);
             setLoading(false);
         })
@@ -44,7 +50,6 @@ const StudentList = (props) => {
         // update our students hook with the new data
 
     }, []); // empty array means run on mount
-
 
     // when search term is updated, this component will rerender 
     // what to do on a re-render? 
@@ -62,6 +67,11 @@ const StudentList = (props) => {
         });
     }
 
+    if(tagSearch){
+        console.log(tagSearch);
+        console.log(filteredStudents)
+    }
+
 
     // return or JSX
     return (
@@ -74,6 +84,8 @@ const StudentList = (props) => {
                 <Alert>{location?.state?.studentName} was successfully deleted.</Alert>
             </Snackbar>
           <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <SearchBar searchTerm={tagSearch} setSearchTerm={setTagSearch} placeholder="Search by tag" />
+
            {filteredStudents.map((student) => {
             return (
                 <StudentCard student={student} key={student.id} />

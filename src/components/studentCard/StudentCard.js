@@ -18,13 +18,13 @@ const StudentCard = ({student, showDelete=false}) => {
     let navigate = useNavigate();
 
     // props deconstructed
-    const {id, pic, firstname, lastname, email, company, skill} = student;
+    const {id, pic, firstname, lastname, email, company, skill, tagArr} = student;
 
     // hooks
     const [grades, setGrades] = useState([]);
     const [showGrades, setShowGrades] = useState(false);
     const [gradesLoading, setGradesLoading] = useState(false);
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState(tagArr);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const [deleteUserLoading, setDeleteUserLoading] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
@@ -164,7 +164,7 @@ const StudentCard = ({student, showDelete=false}) => {
             <div className="studentCard__tagCollectionRow">
                 <div className="studentCard__tagCollection">
                     <div className="studentCard__tags">
-                        {tags.map((tag, index) => {
+                        {tagArr.map((tag, index) => {
                             return (
                                 <span className="studentCard__tag" key={tag + index}>{tag}</span>
                             )

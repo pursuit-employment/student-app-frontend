@@ -2,7 +2,7 @@ import React from 'react';
 
 import './SearchBar.scss';
 
-function SearchBar({searchTerm, setSearchTerm}) {
+function SearchBar({searchTerm, setSearchTerm, placeholder = "Search by name"}) {
 
     const updateSearchTerm = (e) => {
         setSearchTerm(e.target.value);
@@ -11,7 +11,7 @@ function SearchBar({searchTerm, setSearchTerm}) {
     return (
         <input 
             className="searchBar" 
-            placeholder="Search by name"
+            placeholder={placeholder}
             value={searchTerm} 
             onChange={updateSearchTerm}
         />

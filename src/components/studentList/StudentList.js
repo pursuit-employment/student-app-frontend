@@ -68,8 +68,18 @@ const StudentList = (props) => {
     }
 
     if(tagSearch){
-        console.log(tagSearch);
-        console.log(filteredStudents)
+        filteredStudents =  filteredStudents.filter(student => {
+            for(let tag of student.tagArr){
+                let partialTag = tag.toLowerCase().slice(0, tagSearch.length)
+
+                if(partialTag === tagSearch.toLowerCase()){
+                    return true;
+                }
+            }
+
+            // return student.tagArr.includes(tagSearch.toLowerCase())
+        })
+
     }
 
 

@@ -30,7 +30,7 @@ function TagInputField ({tags, setTags, id }) {
         
         if(!pendingTag) return;
         
-        setTags((tags) => [...tags, [pendingTag]]);
+        setTags((tags) => [...tags, pendingTag]);
         setTag('');
       }
 

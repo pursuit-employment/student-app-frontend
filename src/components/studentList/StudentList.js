@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { useLocation } from "react-router-dom";
+import { api } from '../../utils/api';
 
 import SearchBar from '../searchBar/SearchBar';
 import StudentCard from '../studentCard/StudentCard';
@@ -13,7 +14,6 @@ import './StudentList.scss';
 const StudentList = (props) => {
 
     let location = useLocation();
-
     
     // hooks
     const [students, setStudents] = useState([]);
@@ -22,9 +22,7 @@ const StudentList = (props) => {
     const [loading, setLoading] = useState(false);
     const [showSnackbar, setShowSnackbar] = useState(false);
     
-    
     // functions
-
     useEffect(() => {
 
         setLoading(true);
@@ -33,9 +31,8 @@ const StudentList = (props) => {
             setShowSnackbar(true);
          }
 
-        const url = 'https://student-app-backend-june.herokuapp.com/students';
         // reach out to the backend
-        fetch(url)
+        fetch(api)
         .then(response => response.json())
         .then(data => {
 
@@ -46,13 +43,9 @@ const StudentList = (props) => {
             setStudents(data);
             setLoading(false);
         })
-        // get our students
-        // update our students hook with the new data
+    }, []); // empty dependency array means run on mount
 
-    }, []); // empty array means run on mount
-
-    // when search term is updated, this component will rerender 
-    // what to do on a re-render? 
+    // when search term is updated, this component will re-render 
     let filteredStudents = students;
 
     if(searchTerm){
@@ -76,10 +69,7 @@ const StudentList = (props) => {
                     return true;
                 }
             }
-
-            // return student.tagArr.includes(tagSearch.toLowerCase())
         })
-
     }
 
 

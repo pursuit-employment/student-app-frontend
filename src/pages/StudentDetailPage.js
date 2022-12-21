@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useLocation} from "react-router-dom";
+import { api } from '../utils/api';
 
 import StudentCard from '../components/studentCard/StudentCard';
 import StudentForm from '../components/studentForm/StudentForm';
@@ -16,24 +17,18 @@ function StudentDetailPage(props) {
     
 
     useEffect(() => {
-        // if(location.state?.student){
-        //     setStudent(location.state?.student)
-        //     // location.state.student = null;
-        // } else {
 
-            if(location?.state?.fromCreateStudent){
-                setShowSnackbar(true);
-             }
-            
-            const singleStudentURL =`https://student-app-backend-june.herokuapp.com/students/${studentId}`; 
+        if(location?.state?.fromCreateStudent){
+            setShowSnackbar(true);
+            }
+        
+        const singleStudentURL =`${api}${studentId}`; 
 
-            fetch(singleStudentURL)
-                .then(response => response.json())
-                .then(data => {
-                    setStudent(data);
-                })
-        // }
-
+        fetch(singleStudentURL)
+            .then(response => response.json())
+            .then(data => {
+                setStudent(data);
+            })
     }, []);
     
     const studentId = params.studentId;

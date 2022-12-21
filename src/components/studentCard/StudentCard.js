@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { api } from '../../utils/api';
 
 import TagInputField from '../tagInputField/TagInputField';
 import EmptyView from '../emptyView/EmptyView';
@@ -63,7 +64,7 @@ const StudentCard = ({student, showDelete=false}) => {
 
             setGradesLoading(true);
 
-            const url = `https://student-app-backend-june.herokuapp.com/students/${id}/grades`;
+            const url = `${api}${id}/grades`;
 
             fetch(url)
             .then(response => response.json())
@@ -74,7 +75,6 @@ const StudentCard = ({student, showDelete=false}) => {
                 setGradesLoading(false);
             })
         }
-
     }
 
     const showDeleteUserDialogue = (e) => {
@@ -85,12 +85,12 @@ const StudentCard = ({student, showDelete=false}) => {
 
         setDeleteUserLoading(true);
         // url to delete 
-        const url = `https://student-app-backend-june.herokuapp.com/students/${id}`;
+        const url = `${api}${id}`;
 
         fetch(url, { method: 'DELETE' })
             .then(response =>  response.json())
             .then(data => {
-                // redirect to home page
+                // redirect to home page passing state to show in toast
                 navigate("/", { 
                     state: {
                         studentName: `${data.firstname} ${data.lastname}`
@@ -105,11 +105,6 @@ const StudentCard = ({student, showDelete=false}) => {
             })
 
     }
-
-    // useEffect(() => {
-    //     if(grades.length)
-    //         setShowGrades(!showGrades);
-    // }, [grades])
 
     return (
         <div className="studentCard">

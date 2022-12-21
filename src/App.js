@@ -1,6 +1,5 @@
 
 import React from 'react';
-import ReactDOM from "react-dom/client";
 import {
   BrowserRouter,
   Routes,
@@ -14,20 +13,6 @@ import AddStudentPage from './pages/AddStudentPage';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
-
-// create new student
-
-// add button to student list page / home page 
-
-// on click move to /students/new
-    // showing form to create new student 
-
-        // on error
-          // show toast with message to try again later
-        // on succeess
-          // redirect to student detail oage of new student
-              // show succcess toast that student was created
-
 
 import './App.scss';
 

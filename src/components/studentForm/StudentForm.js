@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
+import { api } from '../../utils/api';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -79,16 +80,14 @@ function StudentForm({student={}, setStudent, title="Update", method="PUT"}) {
         setLoading(true);
 
         // set our target url 
-
-        let url = `https://student-app-backend-june.herokuapp.com/students`;
+        let url = api;
 
         if(method === 'PUT'){
             url += `/${student.id}`
         }
 
         // what data are we passing to our backend?
-        // what http method are we using
-
+        // what http method are we using?
         const requestOptions = {
             method,
             headers: { 'Content-Type': 'application/json' },
